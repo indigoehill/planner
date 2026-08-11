@@ -1,0 +1,993 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semester 2 2026 — BAdvFinEcon(Hons)</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#12171E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Sem 2">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="icon-192.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ground:#E9EBEE;
+  --card:#FCFCFD;
+  --ink:#12171E;
+  --ink2:#4A5461;
+  --ink3:#828C99;
+  --rule:#D3D8DE;
+  --rule2:#E3E6EA;
+
+  --e2050:#5B4BC4;
+  --e3210:#0E7A6E;
+  --f3405:#B0690E;
+  --f3412:#B23A48;
+
+  --spike:#B23A48;
+  --band:#0E7A6E;
+
+  --sans:'Public Sans',system-ui,sans-serif;
+  --disp:'Archivo',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+
+  --gut:clamp(16px,3.2vw,34px);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-size:15px;line-height:1.5;
+  padding:0 var(--gut) 90px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+
+/* ---------- masthead ---------- */
+header{padding:44px 0 26px;border-bottom:1.5px solid var(--ink)}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink2);
+  display:flex;flex-wrap:wrap;gap:6px 18px;
+}
+h1{
+  font-family:var(--disp);font-weight:800;
+  font-size:clamp(34px,7.2vw,62px);line-height:.95;
+  letter-spacing:-.028em;margin:16px 0 0;max-width:15ch;
+}
+.sub{margin:14px 0 0;color:var(--ink2);max-width:56ch;font-size:15.5px}
+
+.now{
+  margin-top:26px;display:flex;flex-wrap:wrap;
+  align-items:baseline;gap:8px 14px;
+  border-left:3px solid var(--spike);padding-left:14px;
+}
+.now .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.now .v{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.now .d{font-family:var(--mono);font-size:13px;color:var(--spike);font-weight:600}
+
+/* ---------- timetable grid ---------- */
+.tt{padding:38px 0 32px;border-bottom:1px solid var(--rule)}
+.ttbox{margin-top:22px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.grid{
+  display:grid;
+  grid-template-columns:46px repeat(5,1fr);
+  grid-auto-rows:15px;
+  min-width:540px;gap:0;position:relative;
+  border:1px solid var(--rule);border-radius:3px;background:var(--card);
+}
+.gcorner{grid-row:1;grid-column:1;border-right:1px solid var(--rule2);border-bottom:1px solid var(--rule)}
+.gday{
+  grid-row:1;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink2);text-align:center;padding:9px 0;border-bottom:1px solid var(--rule);
+  border-left:1px solid var(--rule2);font-weight:600;position:sticky;top:0;background:var(--card);z-index:3;
+}
+.ghour{
+  grid-column:1;font-family:var(--mono);font-size:9.5px;color:var(--ink3);
+  text-align:right;padding:0 7px 0 0;transform:translateY(-6px);
+  border-right:1px solid var(--rule2);
+}
+.gline{grid-column:2 / -1;border-top:1px solid var(--rule2);pointer-events:none}
+.gcol{border-left:1px solid var(--rule2)}
+.cls{
+  border-radius:3px;margin:1px 2px;padding:5px 6px;overflow:hidden;
+  border-left:3px solid;cursor:default;position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:1px;min-height:0;
+}
+.cls .cc-code{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.02em;line-height:1.1}
+.cls .cc-type{font-family:var(--sans);font-size:10.5px;font-weight:600;line-height:1.15}
+.cls .cc-room{font-family:var(--mono);font-size:8.5px;opacity:.7;line-height:1.15;margin-top:auto}
+.cls.e2050{background:#EEECFA;border-color:var(--e2050);color:#2E2568}
+.cls.e3210{background:#E3F2F0;border-color:var(--e3210);color:#0A4A43}
+.cls.f3405{background:#F7EEDF;border-color:var(--f3405);color:#6E410A}
+.cls.f3412{background:#F8E7E9;border-color:var(--f3412);color:#6E2029}
+.ttnote{margin-top:12px;font-size:12.5px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:4px 16px}
+.ttnote b{color:var(--ink2);font-weight:600}
+@media (max-width:560px){
+  .cls .cc-room{display:none}
+  .grid{grid-template-columns:38px repeat(5,1fr)}
+}
+/* ---------- assessment calendar ---------- */
+.calsec{padding:38px 0 32px;border-bottom:1px solid var(--rule)}
+.cwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(298px,1fr));gap:6px 26px;margin-top:22px}
+.month{margin-bottom:14px}
+.mhead{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:-.01em;margin:0 0 8px;color:var(--ink)}
+.mhead span{color:var(--ink3);font-weight:600}
+.mgrid{
+  display:grid;grid-template-columns:repeat(7,1fr);
+  border-right:1px solid var(--rule2);border-bottom:1px solid var(--rule2);
+  border-radius:3px;overflow:hidden;background:var(--card);
+}
+.dow{
+  font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;padding:6px 0;font-weight:600;
+  border-left:1px solid var(--rule2);border-top:1px solid var(--rule2);background:var(--card);
+}
+.cell{
+  min-height:58px;padding:3px 3px 4px;display:flex;flex-direction:column;gap:1px;
+  border-left:1px solid var(--rule2);border-top:1px solid var(--rule2);
+}
+.cell.blank{background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(0,0,0,.012) 6px 12px)}
+.daynum{font-family:var(--mono);font-size:10px;color:var(--ink3);font-weight:600;display:flex;align-items:center;gap:4px;margin-bottom:1px}
+.cell.today{outline:2px solid var(--spike);outline-offset:-2px}
+.cell.today .daynum{color:var(--spike)}
+.cell.win{background:repeating-linear-gradient(135deg,rgba(14,122,110,.055) 0 7px,rgba(14,122,110,.015) 7px 14px)}
+.cell.brk{background:rgba(130,140,153,.11)}
+.holdot{width:5px;height:5px;border-radius:50%;background:var(--f3405);display:inline-block}
+.cpill{
+  font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.01em;line-height:1.25;
+  padding:2px 4px;border-radius:2px;color:#fff;word-break:break-word;
+}
+.cpill.e2050{background:var(--e2050)}
+.cpill.e3210{background:var(--e3210)}
+.cpill.f3405{background:var(--f3405)}
+.cpill.f3412{background:var(--f3412)}
+.cpill.brk-pill{background:var(--ink2)}
+.callegend{margin-top:16px;display:flex;flex-wrap:wrap;gap:6px 15px;font-size:12px;color:var(--ink2)}
+.callegend span{display:inline-flex;align-items:center;gap:6px}
+.callegend i{width:11px;height:11px;border-radius:2px;display:inline-block}
+.callegend i.win{background:repeating-linear-gradient(135deg,var(--e3210) 0 3px,rgba(14,122,110,.3) 3px 6px)}
+.callegend i.brk{background:rgba(130,140,153,.5)}
+@media (max-width:560px){
+  .cwrap{grid-template-columns:1fr}
+  .cell{min-height:50px}
+}
+/* ---------- exposure curve ---------- */
+.curve{padding:38px 0 30px;border-bottom:1px solid var(--rule)}
+.sechead{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin-bottom:6px}
+.sechead h2{
+  font-family:var(--disp);font-weight:700;font-size:15px;
+  letter-spacing:.03em;text-transform:uppercase;margin:0;
+}
+.sechead p{margin:0;color:var(--ink3);font-size:13.5px;max-width:52ch}
+.chartbox{margin-top:22px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+svg.chart{display:block;width:100%;min-width:640px;height:230px}
+.bar{cursor:pointer;transition:opacity .15s}
+.bar:hover{opacity:.72}
+.blabel{font-family:var(--mono);font-size:9.5px;fill:var(--ink3);letter-spacing:.06em}
+.bval{font-family:var(--mono);font-size:10px;font-weight:600;fill:var(--ink2)}
+.axis{stroke:var(--rule);stroke-width:1}
+.bandnote{font-family:var(--mono);font-size:9.5px;fill:var(--band);letter-spacing:.05em}
+
+/* ---------- filters ---------- */
+.tools{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:24px 0 18px;position:sticky;top:0;z-index:20;
+  background:linear-gradient(var(--ground) 72%,rgba(233,235,238,0));
+}
+.chip{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--rule);background:transparent;color:var(--ink2);
+  padding:7px 12px;border-radius:2px;cursor:pointer;font-weight:500;
+}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip.c1[aria-pressed="true"]{background:var(--e2050);border-color:var(--e2050)}
+.chip.c2[aria-pressed="true"]{background:var(--e3210);border-color:var(--e3210)}
+.chip.c3[aria-pressed="true"]{background:var(--f3405);border-color:var(--f3405)}
+.chip.c4[aria-pressed="true"]{background:var(--f3412);border-color:var(--f3412)}
+.spacer{flex:1;min-width:8px}
+.prog{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.06em}
+.ghost{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  background:none;border:none;color:var(--ink3);cursor:pointer;padding:7px 4px;text-decoration:underline;
+}
+.ghost:hover{color:var(--spike)}
+
+/* ---------- week cards ---------- */
+.week{
+  background:var(--card);border:1px solid var(--rule);border-radius:3px;
+  margin-bottom:12px;overflow:hidden;
+}
+.week.crit{border-color:var(--spike);border-width:1.5px}
+.week.rest{background:transparent;border-style:dashed}
+.whead{
+  width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;
+  padding:16px 18px;background:none;border:0;cursor:pointer;text-align:left;font:inherit;
+}
+.wnum{
+  font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:-.03em;
+  min-width:52px;line-height:1;
+}
+.week.crit .wnum{color:var(--spike)}
+.wdates{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.wtitle{font-family:var(--disp);font-weight:600;font-size:15px;letter-spacing:-.01em;flex:1;min-width:170px}
+.wtags{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.tag{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:3px 6px;border-radius:2px;font-weight:600;color:#fff;white-space:nowrap;
+}
+.tag.hol{background:var(--ink2)}
+.tag.due{background:var(--spike)}
+.tag.exam{background:var(--band)}
+.wcount{font-family:var(--mono);font-size:11px;color:var(--ink3);min-width:38px;text-align:right}
+.caret{transition:transform .2s;color:var(--ink3);flex:0 0 auto}
+.week[open-state="1"] .caret{transform:rotate(90deg)}
+
+.wbody{display:none;padding:0 18px 20px;border-top:1px solid var(--rule2)}
+.week[open-state="1"] .wbody{display:block}
+
+.strip{
+  display:flex;flex-wrap:wrap;gap:5px;padding:14px 0 4px;
+}
+.slot{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;
+  border:1px solid var(--rule);border-left-width:3px;
+  padding:5px 8px;border-radius:2px;color:var(--ink2);white-space:nowrap;
+}
+.slot.off{opacity:.4;text-decoration:line-through}
+
+.grp{margin-top:18px}
+.grph{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink3);margin:0 0 8px;padding-bottom:5px;border-bottom:1px solid var(--rule2);
+}
+ul.items{list-style:none;margin:0;padding:0}
+li.item{display:flex;gap:10px;align-items:flex-start;padding:6px 0}
+li.item input{margin:3px 0 0;width:15px;height:15px;accent-color:var(--ink);flex:0 0 auto;cursor:pointer}
+li.item label{cursor:pointer;flex:1;font-size:14.5px}
+li.item.done label{color:var(--ink3);text-decoration:line-through}
+.cc{
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;
+  padding:1px 5px;border-radius:2px;color:#fff;margin-right:7px;white-space:nowrap;
+}
+.cc.e2050{background:var(--e2050)}
+.cc.e3210{background:var(--e3210)}
+.cc.f3405{background:var(--f3405)}
+.cc.f3412{background:var(--f3412)}
+.cc.adm{background:var(--ink2)}
+.wt{font-family:var(--mono);font-size:11px;color:var(--spike);font-weight:600;margin-left:6px}
+.dayt{
+  font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.04em;
+  color:var(--ink);background:var(--rule2);padding:2px 6px;border-radius:2px;
+  margin-right:8px;white-space:nowrap;display:inline-block;
+}
+li.item.done .dayt{background:transparent;color:var(--ink3)}
+.hint{color:var(--ink3);font-size:13px;font-style:italic;margin:8px 0 0}
+.flag{
+  margin-top:14px;padding:11px 13px;border-left:3px solid var(--spike);
+  background:rgba(178,58,72,.05);font-size:14px;color:var(--ink2);
+}
+.flag b{color:var(--ink)}
+
+/* ---------- ledger ---------- */
+.ledger{margin-top:52px;padding-top:30px;border-top:1.5px solid var(--ink)}
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:14px}
+th{
+  font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink3);text-align:left;padding:0 10px 8px 0;border-bottom:1px solid var(--rule);font-weight:500;
+}
+td{padding:10px 10px 10px 0;border-bottom:1px solid var(--rule2);vertical-align:top}
+td.w{font-family:var(--mono);font-weight:600;white-space:nowrap}
+td.dt{font-family:var(--mono);font-size:12.5px;color:var(--ink2);white-space:nowrap}
+tr.hi td{background:rgba(178,58,72,.055)}
+.foot{margin-top:34px;color:var(--ink3);font-size:12.5px;max-width:64ch;line-height:1.6}
+
+@media (max-width:640px){
+  .wnum{font-size:21px;min-width:40px}
+  .wcount{display:none}
+  table{font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+:focus-visible{outline:2px solid var(--spike);outline-offset:2px}
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">
+    <span>Semester 2, 2026</span><span>27 Jul – 21 Nov</span>
+    <span>St Lucia</span><span>BAdvFinEcon(Hons)</span>
+  </div>
+  <h1>Four courses, one collision.</h1>
+  <p class="sub">ECON2050 · ECON3210 · FINM3405 · FINM3412. Sixteen contact hours a week, three finals worth 50% or more, and two team reports due within an hour of each other on 23 October.</p>
+  <div class="now">
+    <span class="k">Next up</span>
+    <span class="v" id="nextTask">—</span>
+    <span class="d" id="nextIn"></span>
+  </div>
+</header>
+
+<section class="tt">
+  <div class="sechead">
+    <h2>Weekly timetable</h2>
+    <p>Your fixed contact hours. The gaps between them are where the prep sessions live.</p>
+  </div>
+  <div class="ttbox"><div class="grid" id="grid"></div></div>
+  <div class="ttnote">
+    <span><b>16</b> contact hours</span>
+    <span><b>Tue</b> 08:00–17:00, the long day</span>
+    <span><b>Wed</b> 10:00–16:00 gap · <b>Thu</b> 08:00–12:00 gap</span>
+    <span><b>Mon &amp; Fri</b> free</span>
+  </div>
+</section>
+
+<section class="calsec">
+  <div class="sechead">
+    <h2>Assessment calendar</h2>
+    <p>Every deadline in the semester, placed on the day it falls. Striped days are exam windows still to be confirmed.</p>
+  </div>
+  <div class="cwrap" id="cal"></div>
+  <div class="callegend">
+    <span><i style="background:var(--e2050)"></i>ECON2050</span>
+    <span><i style="background:var(--e3210)"></i>ECON3210</span>
+    <span><i style="background:var(--f3405)"></i>FINM3405</span>
+    <span><i style="background:var(--f3412)"></i>FINM3412</span>
+    <span><i class="win"></i>Exam window — TBC</span>
+    <span><i class="brk"></i>Mid-sem break</span>
+    <span><i style="background:var(--f3405);border-radius:50%"></i>Public holiday</span>
+  </div>
+</section>
+
+<section class="curve">
+  <div class="sechead">
+    <h2>Exposure profile</h2>
+    <p>Assessment weight resolving each week, excluding finals. Click a bar to jump.</p>
+  </div>
+  <div class="chartbox"><svg class="chart" id="chart" viewBox="0 0 900 230" preserveAspectRatio="none" role="img" aria-label="Assessment weight by week, peaking in week 12"></svg></div>
+</section>
+
+<div class="tools">
+  <button class="chip c1" data-f="e2050" aria-pressed="false">ECON2050</button>
+  <button class="chip c2" data-f="e3210" aria-pressed="false">ECON3210</button>
+  <button class="chip c3" data-f="f3405" aria-pressed="false">FINM3405</button>
+  <button class="chip c4" data-f="f3412" aria-pressed="false">FINM3412</button>
+  <span class="spacer"></span>
+  <span class="prog" id="prog">0 / 0 done</span>
+  <button class="ghost" id="expandAll">Expand all</button>
+  <button class="ghost" id="resetAll">Reset</button>
+</div>
+
+<main id="weeks"></main>
+
+<section class="ledger">
+  <div class="sechead"><h2>Assessment ledger</h2><p>Every deadline, all four courses.</p></div>
+  <table>
+    <thead><tr><th>Due</th><th>Course</th><th>Task</th><th>Weight</th></tr></thead>
+    <tbody id="ledger"></tbody>
+  </table>
+  <p class="foot">
+    Built from the Semester 2 2026 electronic course profiles. Dates for the ECON3210 and FINM3405
+    in-semester exams are set centrally and released in mid-August — until then, keep 5, 11, 12, 13,
+    18, 19 and 20 September clear. Anything marked TBC in a profile is repeated here as TBC; confirm
+    on Blackboard. Check your progress is saving before you rely on it.
+  </p>
+</section>
+
+</div>
+
+<script>
+/* =====================================================================
+   HOW TO EDIT THIS FILE
+
+   Everything lives in this one file. Edit it, save, refresh the browser.
+   There is no build step and nothing to install.
+
+   THE FOUR THINGS YOU'LL ACTUALLY CHANGE
+     1. TOPICS   — one row per teaching week. Change a topic name here and
+                   the prep sessions rewrite themselves.
+     2. W        — the week cards. Each item is
+                   ['course', 'kind', 'text'] and optionally a % weight.
+                   'kind' is one of: due, class, prep, ahead.
+     3. LEDGER   — the table at the bottom of the page.
+     4. buildSessions() — the rules that turn TOPICS into timed blocks.
+                   Change '09:00-10:00' etc. to hours you actually work.
+
+   COURSE KEYS: e2050  e3210  f3405  f3412  adm
+
+   YOUR TICKS ARE SAFE WHEN YOU EDIT
+     Each checkbox is identified by its text, not its position, so adding,
+     deleting or reordering items leaves your existing ticks alone.
+     Rewording an item clears that one tick and nothing else.
+
+   IF SOMETHING BREAKS
+     Press F12 in the browser and read the Console tab. A red message with a
+     line number is telling you exactly where you typed something wrong.
+     Nine times out of ten it's a missing comma, quote, or bracket.
+
+   NOTE ON APOSTROPHES
+     Text is wrapped in 'single quotes'. If your text contains an apostrophe,
+     either escape it or use a curly one. Otherwise the quote ends early and
+     the line breaks.
+   ===================================================================== */
+
+/* ---------------- storage ---------------- */
+const KEY='sem2-2026-planner';
+const store={
+  async get(){
+    try{
+      if(window.storage){const r=await window.storage.get(KEY);return r?JSON.parse(r.value):{};}
+      return JSON.parse(localStorage.getItem(KEY)||'{}');
+    }catch(e){return {};}
+  },
+  async set(v){
+    try{
+      if(window.storage){await window.storage.set(KEY,JSON.stringify(v));return;}
+      localStorage.setItem(KEY,JSON.stringify(v));
+    }catch(e){}
+  }
+};
+let state={};
+
+/* ---------------- fixed timetable ---------------- */
+const SLOTS=[
+  {d:'Tue',t:'08–09',c:'e2050',n:'Tutorial',r:'Forgan Smith 01-W332'},
+  {d:'Tue',t:'12–14',c:'f3405',n:'Tutorial',r:'Joyce Ackroyd 37-115'},
+  {d:'Tue',t:'14–17',c:'f3412',n:'Seminar',r:'Physiology 63-348'},
+  {d:'Wed',t:'08–10',c:'e3210',n:'Tutorial',r:'39A-208'},
+  {d:'Wed',t:'16–18',c:'e2050',n:'Lecture',r:'Prentice 42-216'},
+  {d:'Thu',t:'12–14',c:'e3210',n:'Workshop',r:'ModWest 11A-120'},
+  {d:'Thu',t:'14–16',c:'f3405',n:'Lecture',r:'UQ Centre 27A-220'},
+  {d:'Thu',t:'16–18',c:'f3412',n:'Tutorial',r:'Liveris 46-230'}
+];
+const CN={e2050:'ECON2050',e3210:'ECON3210',f3405:'FINM3405',f3412:'FINM3412',adm:'Admin'};
+const CV={e2050:'--e2050',e3210:'--e3210',f3405:'--f3405',f3412:'--f3412'};
+
+/* ---------------- weeks ----------------
+   class = attend · prep = do before class · ahead = next week's content · due = deadline  */
+const W=[
+{n:1,dates:'27 Jul – 2 Aug',title:'Straight into assessed tutorials',load:0,
+ items:[
+  ['e3210','class','Wed tutorial — Topic 0: money, balance sheets, shares & bonds. <b>Engagement test #1 runs in class.</b>'],
+  ['e3210','prep','Self-study Topic 0 on UQ Extend before Wednesday — 3 to 5 short subsections'],
+  ['e3210','class','Thu workshop — course presentation, Extend platform, three-colour tutorials'],
+  ['e2050','class','Wed Lecture 1 — Real Analysis I. No tutorial in week 1.'],
+  ['f3405','class','Thu lecture — Introduction to derivatives, forwards & futures 1 (Hull 1–3)'],
+  ['f3412','class','Tue 14:00–17:00 seminar — macro & industry analysis'],
+  ['f3412','class','Thu 16:00–18:00 tutorial <b>does run in week 1</b> — the profile lists week 1 as lecture only, but your timetable has it. Attend; no task comes from it (Task 1 follows week 2\u2019s tutorial).'],
+  ['e3210','ahead','Self-study Topic 1 — lifecycle of a financial instrument'],
+  ['f3405','ahead','Read Hull ch. 5 ahead of the week 2 lecture'],
+  ['adm','prep','Confirm all four tutorial allocations in My Timetable'],
+  ['adm','prep','Diarise 5, 11, 12, 13, 18, 19, 20 Sep as unavailable — two exams land in there']
+ ],
+ flag:'ECON3210 engagement tests start in <b>week 1</b>, not week 2. They are 20% of the course, in person, best 8 of 13. You can miss five tutorials all semester; there is no alternative assessment.'},
+
+{n:2,dates:'3 – 9 Aug',title:'Full timetable begins',load:0,
+ items:[
+  ['e3210','class','Wed tutorial — Topic 1 (test #2) · Thu workshop — Topic 0'],
+  ['e3210','prep','Self-study Topic 1 complete before Wednesday'],
+  ['e2050','class','Tue Tutorial 1 (Real Analysis I) · Wed Lecture 2 (Real Analysis II)'],
+  ['f3405','class','Tue tutorial — intro & forwards/futures 1 · Thu lecture — forwards & futures 2'],
+  ['f3412','class','Tue seminar — financial statement analysis · Thu Tutorial 1'],
+  ['f3412','due','Tutorial Task 1 — due Mon 10 Aug, 1:00pm. Work it over the weekend.',4],
+  ['e3210','ahead','Self-study Topic 2 — the payment system'],
+  ['f3405','ahead','Read Hull ch. 10–11 (options 1)']
+ ]},
+
+{n:3,dates:'10 – 16 Aug',title:'Show holiday — two courses disrupted',load:4,hol:1,
+ off:['e3210:Wed','e2050:Tue','e2050:Wed'],
+ items:[
+  ['f3412','due','<b>Tutorial Task 1 due Mon 10 Aug, 1:00pm</b>',4],
+  ['e3210','class','<b>Wed tutorial cancelled</b> (Royal Queensland Show). Join another tutorial group this week or the Friday 14 Aug catch-up (TBC) — this is an assessed test.'],
+  ['e3210','class','Thu workshop — Topic 1. Runs as normal.'],
+  ['e2050','class','<b>No lecture and no tutorial this week.</b>'],
+  ['f3405','class','Tue tutorial — forwards & futures 2 · Thu lecture — options 1: introduction'],
+  ['f3412','class','Tue seminar — equity valuation · Thu Tutorial 2'],
+  ['f3412','due','Tutorial Task 2 — due Mon 17 Aug, 1:00pm',4],
+  ['e3210','ahead','Self-study Topic 3 — funding the economy'],
+  ['f3405','ahead','Read Hull ch. 15 — Black-Scholes']
+ ],
+ flag:'Wednesday 12 August is a public holiday. Your ECON3210 tutorial that day is cancelled and it carries a mark — sort out which alternative group you are attending <b>this week</b>, not on the day. ECON2050 loses the whole week, so use the freed Tuesday and Wednesday for the maths you would otherwise fall behind on.'},
+
+{n:4,dates:'17 – 23 Aug',title:'Back to full load',load:4,
+ items:[
+  ['f3412','due','<b>Tutorial Task 2 due Mon 17 Aug, 1:00pm</b>',4],
+  ['e3210','class','Wed tutorial — Topic 3 · Thu workshop — Topic 2'],
+  ['e2050','class','Tue Tutorial 2 (Real Analysis II) · Wed Lecture 3 (Real Analysis III)'],
+  ['f3405','class','Tue tutorial — options 1 · Thu lecture — options 2: Black-Scholes'],
+  ['f3412','class','Tue seminar — debt & credit · Thu Tutorial 3'],
+  ['f3412','due','Tutorial Task 3 — due Mon 24 Aug, 1:00pm',4],
+  ['e3210','ahead','Self-study Topic 4 — debt markets, bond auctions, securitisation'],
+  ['e2050','ahead','Start Assignment 1 — it covers real analysis, due 4 Sep']
+ ]},
+
+{n:5,dates:'24 – 30 Aug',title:'Assignment 1 window opens',load:4,
+ items:[
+  ['f3412','due','<b>Tutorial Task 3 due Mon 24 Aug, 1:00pm</b>',4],
+  ['e3210','class','Wed tutorial — Topic 4 · Thu workshop — Topic 3'],
+  ['e2050','class','Tue Tutorial 3 · Wed Lecture 4 (Real Analysis IV)'],
+  ['f3405','class','Tue tutorial — Black-Scholes · Thu: <b>no lecture, free study for the in-semester exam</b> (week may shift — check Blackboard)'],
+  ['f3412','class','Tue seminar — portfolio theory & performance evaluation · Thu Tutorial 4'],
+  ['f3412','due','Tutorial Task 4 — due Mon 31 Aug, 1:00pm',4],
+  ['e2050','prep','Draft Assignment 1 this week, not next — next week has three deadlines'],
+  ['e3210','ahead','Self-study Topic 5 — security lending and short selling']
+ ],
+ flag:'FINM3405 gives you a lecture-free Thursday for exam study. Its practice exam goes up on Blackboard. Use the freed 2–4pm slot on the practice paper rather than letting it dissolve.'},
+
+{n:6,dates:'31 Aug – 6 Sep',title:'First real crunch',load:20,due:1,exam:1,
+ items:[
+  ['f3412','due','<b>Tutorial Task 4 due Mon 31 Aug, 1:00pm</b>',4],
+  ['e2050','due','<b>Assignment 1 due Fri 4 Sep, 4:00pm</b>',16],
+  ['e3210','class','Wed tutorial — Topic 5 · Thu workshop — Topic 4'],
+  ['e2050','class','Tue Tutorial 4 · Wed Lecture 5 (Real Analysis V / Linear Algebra I)'],
+  ['f3405','class','Tue tutorial — <b>in-semester exam practice</b>, tutor works the practice paper · Thu lecture — options 3: the Greeks'],
+  ['f3412','class','Tue seminar — EMH, behavioural finance & impact investing · Thu Tutorial 5'],
+  ['f3412','due','Tutorial Task 5 — due Mon 7 Sep, 1:00pm',4],
+  ['adm','prep','Watch for the exam-date release: FINM3405 could sit on Sat 5 Sep']
+ ],
+ flag:'The FINM3405 profile puts free study in week 5 and exam practice in week 6, which implies its exam weekend is <b>5–6 September</b>. Treat that as a strong hint, not a fact — confirm the moment UQ publishes.'},
+
+{n:7,dates:'7 – 13 Sep',title:'The September gauntlet',load:39,due:1,exam:1,crit:1,
+ items:[
+  ['f3412','due','<b>Tutorial Task 5 due Mon 7 Sep, 1:00pm</b> — last of the five',4],
+  ['f3412','due','<b>In-semester exam, Tue 8 Sep, in your 2–5pm seminar.</b> Multiple choice, 90 min, closed book.',15],
+  ['f3405','due','<b>In-semester exam — Sat 12 Sep, 8:00am, St Lucia.</b> Closed book, no materials, FX82 only. Bring student ID. 90 min + 10 reading.',20],
+  ['e3210','class','Wed tutorial — Topic 6 · Thu workshop — Topic 5'],
+  ['e2050','class','Tue Tutorial 5 · Wed Lecture 6 (Linear Algebra II)'],
+  ['f3405','class','Tue tutorial — the Greeks · Thu lecture — options 4: trading strategies'],
+  ['f3412','class','Thu Tutorial 6'],
+  ['e2050','ahead','Assignment 2 opens — due 25 Sep, covers all five learning outcomes']
+ ],
+ flag:'A task deadline Monday, a 15% exam Tuesday, and the FINM3405 20% exam Saturday morning. The confirmed dates are kind to you: FINM3405 sits this Saturday, ECON3210 the next, so the two 20% exams do <b>not</b> collide. Keep the weekend clear for FINM3405 and nothing else.'},
+
+{n:8,dates:'14 – 20 Sep',title:'ECON3210 exam Saturday',load:20,exam:1,
+ items:[
+  ['e3210','due','<b>In-semester exam — Sat 19 Sep, 2:00pm, St Lucia.</b> Specified written/printed material permitted, FX82 only. Bring student ID. 90 min + 10 reading.',20],
+  ['e3210','class','Wed tutorial — Topic 7: bank financial statements · Thu workshop — Topic 6'],
+  ['e2050','class','Tue Tutorial 6 · Wed Lecture 7 (Convexity)'],
+  ['f3405','class','Tue tutorial — trading strategies · Thu lecture — options 5: numerical methods'],
+  ['f3412','class','Tue project development workshop · Thu tutorial'],
+  ['f3412','prep','<b>Team formed and project scope agreed by the end of this week</b>'],
+  ['f3405','prep','<b>Team of four formed for the derivatives report</b>'],
+  ['e2050','prep','Assignment 2 draft underway — due next Friday']
+ ],
+ flag:'Both team projects need to exist by now. Six weeks from here to 23 October sounds generous and is not — the mid-semester break is the only unstructured block left, and both reports want it.'},
+
+{n:9,dates:'21 – 27 Sep',title:'Assignment 2, then the break',load:16,due:1,
+ items:[
+  ['e2050','due','<b>Assignment 2 due Fri 25 Sep, 4:00pm</b>',16],
+  ['e3210','class','Wed tutorial — Topic 8: Basel capital regulation · Thu workshop — Topic 7'],
+  ['e2050','class','Tue Tutorial 7 (Convexity) · Wed Lecture 8 (Optimization I)'],
+  ['f3405','class','Tue tutorial — numerical methods · Thu lecture — options 6: exotic options'],
+  ['f3412','class','Tue project development workshop · Thu tutorial'],
+  ['f3412','prep','Company selected, financial statements gathered, model skeleton started'],
+  ['f3405','prep','Case set collected and computation approach agreed with your team']
+ ]},
+
+{n:'—',dates:'28 Sep – 4 Oct',title:'Mid-semester break',load:0,rest:1,
+ items:[
+  ['adm','prep','No classes in any of the four courses'],
+  ['f3412','prep','<b>Build the financial model.</b> This is the single biggest block of unstructured time you get before 23 October.'],
+  ['f3405','prep','Work the case computations and draft the theory discussion'],
+  ['e3210','prep','Consolidate topics 0–8 while they are fresh — the final covers 5–11 and assumes 0–3'],
+  ['adm','prep','Rest properly for at least two days. Weeks 10–13 do not let up.']
+ ],
+ flag:'Treat this as the project fortnight, not a holiday. Every hour spent on the two reports here is an hour you will not have in week 12.'},
+
+{n:10,dates:'5 – 11 Oct',title:'Return, holiday Monday',load:0,hol:1,
+ items:[
+  ['adm','prep','Mon 5 Oct is King\u2019s Birthday. Classes resume Tue 6 Oct.'],
+  ['e3210','class','Wed tutorial — Topic 9: yield curves & expectations theory · Thu workshop — Topic 8 <b>moved online, day TBC</b>'],
+  ['e2050','class','Tue Tutorial 8 · Wed Lecture 9 (Optimization II)'],
+  ['f3405','class','Tue tutorial — exotic options · Thu lecture — swaps 1: credit default swaps'],
+  ['f3412','class','Tue project development workshop · Thu tutorial'],
+  ['f3412','prep','<b>Model complete, first valuation output by Sun 11 Oct</b>'],
+  ['f3405','prep','<b>Computations done, report structure agreed by Sun 11 Oct</b>']
+ ]},
+
+{n:11,dates:'12 – 18 Oct',title:'Both drafts finished this week',load:0,
+ items:[
+  ['e3210','class','Wed tutorial — Topic 10: monetary policy implementation · Thu workshop — Topic 9'],
+  ['e2050','class','Tue Tutorial 9 · Wed Lecture 10 (Optimization III)'],
+  ['f3405','class','Tue tutorial — credit default swaps · Thu lecture — swaps 2: interest rate swaps'],
+  ['f3412','class','Tue project development workshop · Thu tutorial'],
+  ['f3412','prep','<b>Full draft of the written report by Sun 18 Oct</b> — leaves week 12 for polish only'],
+  ['f3405','prep','<b>Full draft of the group report by Sun 18 Oct</b>'],
+  ['f3412','prep','Start the presentation slides — they are due with the report, not with the presentation'],
+  ['e2050','ahead','Assignment 3 opens — optimization and convexity, due 30 Oct']
+ ],
+ flag:'This is the week that decides whether week 12 is manageable. Two finished drafts by Sunday means week 12 is editing. Two unfinished drafts means week 12 is writing, on top of everything else.'},
+
+{n:12,dates:'19 – 25 Oct',title:'Both reports due Friday',load:65,due:1,crit:1,
+ items:[
+  ['f3405','due','<b>Group report due Fri 23 Oct, 4:00pm.</b> Submit to Blackboard <i>and</i> Turnitin. One member submits for the team.',25],
+  ['f3412','due','<b>Part A due Fri 23 Oct, 5:00pm</b> — written report, Excel model and presentation slides',40],
+  ['e3210','class','Wed tutorial — Topic 11: cash rate targeting & QE · Thu workshop — Topic 10'],
+  ['e2050','class','Tue Tutorial 10 · Wed Lecture 11 (Optimization IV)'],
+  ['f3405','class','Tue tutorial — interest rate swaps · Thu lecture — value at risk & expected shortfall'],
+  ['f3412','class','Tue project development workshop · Thu tutorial'],
+  ['e2050','prep','Assignment 3 needs real work this week — next week is the presentation'],
+  ['adm','prep','Submit both reports Thursday if at all possible. A one-hour gap leaves no room for an upload failure.']
+ ],
+ flag:'<b>The collision.</b> Two team reports, two different teams, 65% of combined course weight, one hour apart. The 4:00pm and 5:00pm deadlines are not a buffer — treat Thursday 22 October as your real deadline for both.'},
+
+{n:13,dates:'26 Oct – 1 Nov',title:'Presentation and three more deadlines',load:46,due:1,crit:1,
+ items:[
+  ['f3412','due','<b>Presentation, some time this week between 8:00am and 6:00pm.</b> Timed — overrunning costs 10% of the presentation score. Schedule on Blackboard.',20],
+  ['f3405','due','<b>Reflective piece and peer assessment due Wed 28 Oct, 4:00pm.</b> Peer assessment is compulsory.',5],
+  ['e2050','due','<b>Assignment 3 due Fri 30 Oct, 4:00pm</b>',16],
+  ['f3412','due','<b>Part C individual reflection due Fri 30 Oct, 5:00pm.</b> BuddyCheck peer evaluation is compulsory or you get no mark for the team assignment.',5],
+  ['e3210','class','Wed tutorial — practice mock exam · Thu workshop — Topic 11 and mock exam'],
+  ['e2050','class','Tue Tutorial 11 · Wed Lecture 12 (Review)'],
+  ['f3405','class','Tue tutorial — VaR & expected shortfall · Thu revision lecture'],
+  ['adm','prep','Sit the ECON3210 mock exam properly, under time. It is the closest thing to the real 60% paper.']
+ ],
+ flag:'Rehearse the presentation before week 12 ends. Once Friday 23 October passes you have four days, and two of them carry other deadlines.'},
+
+{n:'—',dates:'2 – 6 Nov',title:'Revision period',load:0,rest:1,
+ items:[
+  ['adm','prep','No classes. Three finals ahead worth 50%, 52% and 60%.'],
+  ['e3210','prep','Final covers topics 5–11, and assumes solid command of 0–3. Build your <b>double-sided</b> A4 sheet.'],
+  ['e2050','prep','Final covers all five learning outcomes. Build your <b>double-sided</b> A4 sheet, handwritten or typed.'],
+  ['f3405','prep','Final is <b>closed book with no notes permitted</b> — nothing to prepare but recall'],
+  ['adm','prep','Casio FX82 or a UQ-approved labelled calculator for all three']
+ ],
+ flag:'FINM3412 is already finished — no final exam. That is the one piece of good news in the November structure.'},
+
+{n:'—',dates:'7 – 21 Nov',title:'End-of-semester exams',load:0,rest:1,exam:1,
+ items:[
+  ['e3210','due','Final exam — closed book, 120 min working time, one A4 sheet double-sided',60],
+  ['e2050','due','Final exam — closed book, 120 min, one A4 sheet double-sided',52],
+  ['f3405','due','Final exam — closed book, 120 min, no written materials',50]
+ ]}
+];
+
+/* ---------------- ledger ---------------- */
+const LEDGER=[
+ ['Mon 10 Aug','f3412','Tutorial Task 1','4%'],
+ ['Mon 17 Aug','f3412','Tutorial Task 2','4%'],
+ ['Mon 24 Aug','f3412','Tutorial Task 3','4%'],
+ ['Mon 31 Aug','f3412','Tutorial Task 4','4%'],
+ ['Fri 4 Sep','e2050','Assignment 1','16%'],
+ ['Mon 7 Sep','f3412','Tutorial Task 5','4%'],
+ ['Tue 8 Sep','f3412','In-semester exam, in seminar','15%'],
+ ['Sat 12 Sep','f3405','In-semester exam — 8:00am, St Lucia','20%',1],
+ ['Sat 19 Sep','e3210','In-semester exam — 2:00pm, St Lucia','20%',1],
+ ['Fri 25 Sep','e2050','Assignment 2','16%'],
+ ['Fri 23 Oct','f3405','Group report — 4:00pm','25%',1],
+ ['Fri 23 Oct','f3412','Part A: report, model, slides — 5:00pm','40%',1],
+ ['Wed 28 Oct','f3405','Reflective piece + peer assessment','5%'],
+ ['Week 13','f3412','Part B: presentation','20%'],
+ ['Fri 30 Oct','e2050','Assignment 3','16%'],
+ ['Fri 30 Oct','f3412','Part C: individual reflection','5%'],
+ ['7–21 Nov','e3210','Final exam','60%'],
+ ['7–21 Nov','e2050','Final exam','52%'],
+ ['7–21 Nov','f3405','Final exam','50%'],
+ ['Weeks 1–13','e3210','Tutorial engagement tests — best 8 of 13','20%']
+];
+
+/* ---------------- weekly topics ----------------
+   One row per teaching week. Order:
+   [ECON3210 tutorial (Wed), ECON3210 workshop (Thu), ECON2050 lecture (Wed),
+    ECON2050 tutorial (Tue), FINM3405 lecture (Thu), FINM3405 tutorial (Tue),
+    FINM3412 seminar (Tue), FINM3412 tutorial (Thu)]
+   null = that class does not run this week. EDIT HERE if a topic changes.  */
+const TOPICS={
+ 1:['Topic 0 — money, balance sheets, shares & bonds','course presentation','Lecture 1 — Real Analysis I',null,'Hull 1–3 — intro, forwards & futures 1',null,'macro & industry analysis','week 1 tutorial'],
+ 2:['Topic 1 — lifecycle of a financial instrument','Topic 0','Lecture 2 — Real Analysis II','Tutorial 1 — Real Analysis I','Hull 5 — forwards & futures 2','intro, forwards & futures 1','financial statement analysis','Tutorial 1'],
+ 3:['Topic 2 — the payment system','Topic 1',null,null,'Hull 10–11 — options 1','forwards & futures 2','equity valuation','Tutorial 2'],
+ 4:['Topic 3 — funding the economy','Topic 2','Lecture 3 — Real Analysis III','Tutorial 2 — Real Analysis II','Hull 15 — Black-Scholes','options 1: introduction','debt & credit','Tutorial 3'],
+ 5:['Topic 4 — debt markets, auctions, securitisation','Topic 3','Lecture 4 — Real Analysis IV','Tutorial 3 — Real Analysis III',null,'options 2: Black-Scholes','portfolio theory & performance','Tutorial 4'],
+ 6:['Topic 5 — security lending & short selling','Topic 4','Lecture 5 — Real Analysis V / Linear Algebra I','Tutorial 4 — Real Analysis IV','Hull 19–20 — the Greeks','in-semester exam practice','EMH, behavioural finance & impact','Tutorial 5'],
+ 7:['Topic 6 — the managed fund industry','Topic 5','Lecture 6 — Linear Algebra II','Tutorial 5 — Real Analysis V / Lin Alg I','Hull 12 — trading strategies','options 3: the Greeks',null,'Tutorial 6'],
+ 8:['Topic 7 — bank financial statements','Topic 6','Lecture 7 — Convexity','Tutorial 6 — Linear Algebra II','Hull 21 — numerical methods','options 4: trading strategies','project development workshop','tutorial'],
+ 9:['Topic 8 — Basel capital regulation','Topic 7','Lecture 8 — Optimization I','Tutorial 7 — Convexity','Hull 26 — exotic options','options 5: numerical methods','project development workshop','tutorial'],
+ 10:['Topic 9 — yield curves & expectations theory','Topic 8 (moved online, day TBC)','Lecture 9 — Optimization II','Tutorial 8 — Optimization I','Hull 25 — credit default swaps','options 6: exotic options','project development workshop','tutorial'],
+ 11:['Topic 10 — monetary policy implementation','Topic 9','Lecture 10 — Optimization III','Tutorial 9 — Optimization II','Hull 7 — interest rate swaps','swaps 1: credit default swaps','project development workshop','tutorial'],
+ 12:['Topic 11 — cash rate targeting & QE','Topic 10','Lecture 11 — Optimization IV','Tutorial 10 — Optimization III','Hull 22 — value at risk','swaps 2: interest rate swaps','project development workshop','tutorial'],
+ 13:['practice mock exam','Topic 11 and mock exam','Lecture 12 — Review','Tutorial 11 — Optimization IV','revision lecture','value at risk & expected shortfall',null,null]
+};
+
+/* Turn a week's topics into dated prep sessions.
+   Rule: review slides before each lecture, work tutorial questions before each tutorial. */
+function buildSessions(w){
+  const T=TOPICS[w.n];
+  if(!T)return [];
+  const [t3210,w3210,l2050,t2050,l3405,t3405,s3412,u3412]=T;
+  const S=[];
+  if(t2050)S.push({d:'Mon',t:'09:00–10:00',c:'e2050',x:`Work the tutorial questions — ${t2050}. Tutorial is Tue 08:00, so this cannot slip.`});
+  if(t3210)S.push({d:'Mon',t:'10:15–12:15',c:'e3210',x:`Self-study on UQ Extend — ${t3210}. Tutorial Wed 08:00 carries an assessed test.`});
+  if(t3405)S.push({d:'Tue',t:'09:00–11:00',c:'f3405',x:`Attempt the tutorial questions — ${t3405}. Tutorial 12:00.`});
+  if(s3412)S.push({d:'Tue',t:'11:00–12:00',c:'f3412',x:`Read the seminar slides — ${s3412}. Seminar 14:00.`});
+  if(t3210)S.push({d:'Wed',t:'10:00–10:30',c:'e3210',x:'Write up the tutorial while it is still fresh'});
+  if(w3210&&w3210!=='course presentation')S.push({d:'Wed',t:'10:30–12:00',c:'e3210',x:`Prepare the workshop questions — ${w3210}. Workshop Thu 12:00.`});
+  if(l2050)S.push({d:'Wed',t:'14:00–15:45',c:'e2050',x:`Review the lecture slides — ${l2050}. Lecture 16:00.`});
+  if(l3405)S.push({d:'Thu',t:'08:00–10:00',c:'f3405',x:`Read ahead — ${l3405}. Lecture 14:00.`});
+  if(u3412)S.push({d:'Thu',t:'10:15–11:30',c:'f3412',x:`Review Tuesday's seminar before the 16:00 tutorial`});
+  if(w.n>=2&&w.n<=6)S.push({d:'Sat',t:'2 hours',c:'f3412',x:'Tutorial task from Thursday — due Monday 13:00. Finishing it Saturday keeps Monday clear.'});
+  return S;
+}
+const SESS=W.map(buildSessions);
+
+/* ---------------- tick identity ----------------
+   A checkbox is identified by WHAT IT SAYS, not by its position in the list.
+   That means you can add, delete or reorder items freely and your existing
+   ticks stay attached to the right things. Rewording an item clears just
+   that one tick, which is usually what you want anyway. */
+function hash(str){
+  let h=2166136261;
+  for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}
+  return (h>>>0).toString(36);
+}
+const itemId=(w,r)=>'i'+hash(w.dates+'|'+r[0]+'|'+r[1]+'|'+r[2]);
+const sessId=(w,x)=>'s'+hash(w.dates+'|'+x.d+'|'+x.t+'|'+x.c+'|'+x.x);
+
+/* ---------------- assessment calendar ----------------
+   One row per deadline. Fixed deadlines have a date; exam windows and the
+   break have start+end. EDIT HERE to change a date — the grid redraws itself.
+   s = short label shown in the cell · full = tooltip text · w = weight %. */
+const ASSESS=[
+ {d:'2026-08-10',c:'f3412',s:'Task 1',w:4,full:'FINM3412 Tutorial Task 1'},
+ {d:'2026-08-17',c:'f3412',s:'Task 2',w:4,full:'FINM3412 Tutorial Task 2'},
+ {d:'2026-08-24',c:'f3412',s:'Task 3',w:4,full:'FINM3412 Tutorial Task 3'},
+ {d:'2026-08-31',c:'f3412',s:'Task 4',w:4,full:'FINM3412 Tutorial Task 4'},
+ {d:'2026-09-04',c:'e2050',s:'Asst 1',w:16,full:'ECON2050 Assignment 1 — 4:00pm'},
+ {d:'2026-09-07',c:'f3412',s:'Task 5',w:4,full:'FINM3412 Tutorial Task 5'},
+ {d:'2026-09-08',c:'f3412',s:'In-sem exam',w:15,full:'FINM3412 in-semester exam, in seminar'},
+ {d:'2026-09-25',c:'e2050',s:'Asst 2',w:16,full:'ECON2050 Assignment 2 — 4:00pm'},
+ {d:'2026-10-23',c:'f3405',s:'Report',w:25,full:'FINM3405 group report — 4:00pm'},
+ {d:'2026-10-23',c:'f3412',s:'Part A',w:40,full:'FINM3412 Part A: report, model, slides — 5:00pm'},
+ {d:'2026-10-28',c:'f3405',s:'Reflect',w:5,full:'FINM3405 reflective piece + peer assessment'},
+ {d:'2026-10-30',c:'e2050',s:'Asst 3',w:16,full:'ECON2050 Assignment 3 — 4:00pm'},
+ {d:'2026-10-30',c:'f3412',s:'Part C',w:5,full:'FINM3412 Part C: individual reflection — 5:00pm'},
+ {d:'2026-09-12',c:'f3405',s:'Exam 8am',w:20,full:'FINM3405 in-semester exam — Sat 12 Sep, 8:00am, St Lucia. Closed book, no materials. FX82 only. Bring student ID.'},
+ {d:'2026-09-19',c:'e3210',s:'Exam 2pm',w:20,full:'ECON3210 in-semester exam — Sat 19 Sep, 2:00pm, St Lucia. Specified written/printed material permitted. FX82 only. Bring student ID.'},
+ {win:1,start:'2026-10-26',end:'2026-11-01',c:'f3412',s:'Part B present',w:20,full:'FINM3412 Part B presentation — scheduled slot in week 13'},
+ {win:1,start:'2026-11-07',end:'2026-11-21',c:'e3210',s:'Final',w:60,full:'ECON3210 final exam'},
+ {win:1,start:'2026-11-07',end:'2026-11-21',c:'e2050',s:'Final',w:52,full:'ECON2050 final exam'},
+ {win:1,start:'2026-11-07',end:'2026-11-21',c:'f3405',s:'Final',w:50,full:'FINM3405 final exam'},
+ {brk:1,start:'2026-09-28',end:'2026-10-04',s:'Mid-sem break',full:'Mid-semester break — the project fortnight'}
+];
+const HOL={'2026-08-12':'Show holiday','2026-10-05':'King\u2019s Birthday'};
+const CALMONTHS=[[2026,8],[2026,9],[2026,10],[2026,11]];
+const MNAME=['','January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function iso(y,m,d){return y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
+function rangeDays(a,b){
+  const [ys,ms,ds]=a.split('-').map(Number),[ye,me,de]=b.split('-').map(Number);
+  const out=[];let c=new Date(ys,ms-1,ds),z=new Date(ye,me-1,de);
+  while(c<=z){out.push(iso(c.getFullYear(),c.getMonth()+1,c.getDate()));c.setDate(c.getDate()+1)}
+  return out;
+}
+function drawCalendar(){
+  const host=document.getElementById('cal');
+  const now=new Date();const todayIso=iso(now.getFullYear(),now.getMonth()+1,now.getDate());
+  const fixed={},winTint=new Set(),brkTint=new Set(),labels={};
+  ASSESS.forEach(a=>{
+    if(a.win){rangeDays(a.start,a.end).forEach(x=>winTint.add(x));(labels[a.start]=labels[a.start]||[]).push(a);}
+    else if(a.brk){rangeDays(a.start,a.end).forEach(x=>brkTint.add(x));(labels[a.start]=labels[a.start]||[]).push(a);}
+    else{(fixed[a.d]=fixed[a.d]||[]).push(a);}
+  });
+  let html='';
+  CALMONTHS.forEach(([y,m])=>{
+    const first=(new Date(y,m-1,1).getDay()+6)%7;   // Monday-indexed
+    const days=new Date(y,m,0).getDate();
+    html+=`<div class="month"><div class="mhead">${MNAME[m]} <span>${y}</span></div><div class="mgrid">`;
+    ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(d=>html+=`<div class="dow">${d}</div>`);
+    for(let i=0;i<first;i++)html+='<div class="cell blank"></div>';
+    for(let day=1;day<=days;day++){
+      const key=iso(y,m,day);
+      const cls=['cell'];
+      if(winTint.has(key))cls.push('win');
+      if(brkTint.has(key))cls.push('brk');
+      if(key===todayIso)cls.push('today');
+      let pills='';
+      (fixed[key]||[]).forEach(a=>pills+=`<span class="cpill ${a.c}" title="${a.full} — ${a.w}%">${a.s} ${a.w}%</span>`);
+      (labels[key]||[]).forEach(a=>{
+        if(a.win)pills+=`<span class="cpill" title="${a.full}" style="background:#fff;border:1px dashed var(${CV[a.c]});color:var(${CV[a.c]})">${a.s} ${a.w}% · TBC</span>`;
+        if(a.brk)pills+=`<span class="cpill brk-pill" title="${a.full}">${a.s}</span>`;
+      });
+      const dot=HOL[key]?`<span class="holdot" title="${HOL[key]}"></span>`:'';
+      html+=`<div class="${cls.join(' ')}"><span class="daynum">${day}${dot}</span>${pills}</div>`;
+    }
+    html+='</div></div>';
+  });
+  host.innerHTML=html;
+}
+
+/* ---------------- timetable grid ----------------
+   Renders SLOTS onto a CSS grid. Row 1 is the day header; each half-hour
+   after that is one grid row. A class from 14:00 to 17:00 spans 6 rows.
+   Because it reads the same SLOTS array as the week cards, the two can
+   never disagree — edit a room or time once, up top, and both update. */
+function drawGrid(){
+  const DAYS=['Mon','Tue','Wed','Thu','Fri'];
+  const START=8, END=18;                 // 08:00 to 18:00
+  const rows=(END-START)*2;              // half-hour rows
+  const g=document.getElementById('grid');
+  g.style.gridTemplateRows=`34px repeat(${rows},15px)`;
+  let html='<div class="gcorner"></div>';
+  DAYS.forEach((d,i)=>html+=`<div class="gday" style="grid-column:${i+2}">${d}</div>`);
+  // hour labels + horizontal lines
+  for(let h=START;h<=END;h++){
+    const row=2+(h-START)*2;
+    const label=(h>12?h-12:h)+(h>=12?'pm':'am');
+    html+=`<div class="ghour" style="grid-row:${row}">${label}</div>`;
+    html+=`<div class="gline" style="grid-row:${row}"></div>`;
+  }
+  // faint vertical day separators, full height
+  DAYS.forEach((d,i)=>{html+=`<div class="gcol" style="grid-column:${i+2};grid-row:2 / ${rows+2}"></div>`;});
+  // classes
+  const parse=t=>{const[a,b]=t.split('–').map(Number);return[a,b]};
+  SLOTS.forEach(s=>{
+    const col=DAYS.indexOf(s.d)+2;
+    const [a,b]=parse(s.t);
+    const r1=2+(a-START)*2, r2=2+(b-START)*2;
+    html+=`<div class="cls ${s.c}" style="grid-column:${col};grid-row:${r1} / ${r2}" title="${CN[s.c]} ${s.n} · ${s.r}">
+      <span class="cc-code">${CN[s.c]}</span>
+      <span class="cc-type">${s.n}</span>
+      <span class="cc-room">${s.r}</span>
+    </div>`;
+  });
+  g.innerHTML=html;
+}
+
+/* ---------------- render ---------------- */
+const GRP={class:'In class',prep:'Before class',ahead:'Get ahead',due:'Due'};
+const ORD=['due','class','prep','ahead'];
+
+function slotStrip(w){
+  const off=w.off||[];
+  return '<div class="strip">'+SLOTS.map(s=>{
+    const dead=off.includes(s.c+':'+s.d);
+    return `<span class="slot${dead?' off':''}" style="border-left-color:var(${CV[s.c]})" title="${s.r}">${s.d} ${s.t} · ${CN[s.c].slice(0,4)}${CN[s.c].slice(4)} ${s.n}</span>`;
+  }).join('')+'</div>';
+}
+
+function render(){
+  const host=document.getElementById('weeks');
+  host.innerHTML=W.map((w,wi)=>{
+    const tags=[];
+    if(w.hol)tags.push('<span class="tag hol">Public holiday</span>');
+    if(w.exam)tags.push('<span class="tag exam">Exam window</span>');
+    if(w.due)tags.push('<span class="tag due">Deadline</span>');
+    const groups=ORD.map(k=>{
+      const rows=w.items.filter(i=>i[1]===k);
+      if(!rows.length)return '';
+      return `<div class="grp"><p class="grph">${GRP[k]}</p><ul class="items">`+rows.map(r=>{
+        const id=itemId(w,r);
+        const on=!!state[id];
+        const wt=r[3]?`<span class="wt">${r[3]}%</span>`:'';
+        return `<li class="item${on?' done':''}" data-c="${r[0]}"><input type="checkbox" id="${id}"${on?' checked':''}><label for="${id}"><span class="cc ${r[0]}">${CN[r[0]]}</span>${r[2]}${wt}</label></li>`;
+      }).join('')+'</ul></div>';
+    }).join('');
+    const sessHTML=SESS[wi].length?`<div class="grp"><p class="grph">Prep schedule</p><ul class="items">`+SESS[wi].map(s=>{
+      const id=sessId(w,s),on=!!state[id];
+      return `<li class="item sess${on?' done':''}" data-c="${s.c}"><input type="checkbox" id="${id}"${on?' checked':''}><label for="${id}"><span class="dayt">${s.d} ${s.t}</span><span class="cc ${s.c}">${CN[s.c]}</span>${s.x}</label></li>`;
+    }).join('')+'</ul></div>':'';
+    const total=w.items.length+SESS[wi].length;
+    const done=w.items.filter(r=>state[itemId(w,r)]).length+SESS[wi].filter(x=>state[sessId(w,x)]).length;
+    return `<article class="week${w.crit?' crit':''}${w.rest?' rest':''}" data-wi="${wi}" open-state="0">
+      <button class="whead" aria-expanded="false">
+        <span class="wnum">${w.n}</span>
+        <span class="wdates">${w.dates}</span>
+        <span class="wtitle">${w.title}</span>
+        <span class="wtags">${tags.join('')}</span>
+        <span class="wcount" data-count="${wi}">${done}/${total}</span>
+        <svg class="caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2l5 4-5 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+      <div class="wbody">${w.rest?'':slotStrip(w)}${sessHTML}${groups}${w.flag?`<div class="flag">${w.flag}</div>`:''}</div>
+    </article>`;
+  }).join('');
+
+  document.getElementById('ledger').innerHTML=LEDGER.map(r=>
+    `<tr class="${r[4]?'hi':''}"><td class="dt">${r[0]}</td><td><span class="cc ${r[1]}">${CN[r[1]]}</span></td><td>${r[2]}</td><td class="w">${r[3]}</td></tr>`
+  ).join('');
+
+  updateProgress();
+  drawGrid();
+  drawCalendar();
+  drawChart();
+  nextUp();
+}
+
+function updateProgress(){
+  let d=0,t=0;
+  W.forEach((w,wi)=>{
+    let wd=0;
+    w.items.forEach(r=>{t++;if(state[itemId(w,r)]){d++;wd++}});
+    SESS[wi].forEach(x=>{t++;if(state[sessId(w,x)]){d++;wd++}});
+    const el=document.querySelector(`[data-count="${wi}"]`);
+    if(el)el.textContent=`${wd}/${w.items.length+SESS[wi].length}`;
+  });
+  document.getElementById('prog').textContent=`${d} / ${t} done`;
+}
+
+function nextUp(){
+  const t=[];
+  W.forEach((w,wi)=>w.items.forEach((r,i)=>{
+    if(r[1]==='due'&&!state[itemId(w,r)])t.push([w,r]);
+  }));
+  const el=document.getElementById('nextTask'),d=document.getElementById('nextIn');
+  if(!t.length){el.textContent='Nothing outstanding';d.textContent='';return}
+  const [w,r]=t[0];
+  el.textContent=r[2].replace(/<[^>]+>/g,'').split('.')[0].split('—')[0].trim().slice(0,60);
+  d.textContent=(w.n==='—'?w.dates:'Week '+w.n)+(r[3]?` · ${r[3]}%`:'');
+}
+
+function drawChart(){
+  const svg=document.getElementById('chart');
+  const max=70,H=230,base=182,left=8,gap=6;
+  const bw=(900-left*2-gap*(W.length-1))/W.length;
+  let s=`<line class="axis" x1="0" y1="${base}" x2="900" y2="${base}"/>`;
+  W.forEach((w,i)=>{
+    const x=left+i*(bw+gap);
+    const h=Math.max(2,(w.load/max)*(base-52));
+    const col=w.load>=46?'var(--spike)':w.load>=16?'var(--f3405)':w.load>0?'var(--ink2)':'var(--rule)';
+    s+=`<rect class="bar" data-go="${i}" x="${x}" y="${base-h}" width="${bw}" height="${h}" fill="${col}" rx="1"><title>${w.n==='—'?w.title:'Week '+w.n} — ${w.load}%</title></rect>`;
+    if(w.load>0)s+=`<text class="bval" x="${x+bw/2}" y="${base-h-6}" text-anchor="middle">${w.load}</text>`;
+    s+=`<text class="blabel" x="${x+bw/2}" y="${base+15}" text-anchor="middle">${w.n==='—'?'··':w.n}</text>`;
+  });
+  s+=`<text class="blabel" x="${left}" y="${base+34}">WEEK →</text>`;
+  svg.innerHTML=s;
+  svg.querySelectorAll('.bar').forEach(b=>b.addEventListener('click',()=>{
+    const a=document.querySelector(`[data-wi="${b.dataset.go}"]`);
+    open(a,true);a.scrollIntoView({behavior:'smooth',block:'center'});
+  }));
+}
+
+function open(a,force){
+  const on=force!==undefined?force:a.getAttribute('open-state')!=='1';
+  a.setAttribute('open-state',on?'1':'0');
+  a.querySelector('.whead').setAttribute('aria-expanded',on);
+}
+
+/* ---------------- events ---------------- */
+document.addEventListener('click',e=>{
+  const h=e.target.closest('.whead');
+  if(h){open(h.parentElement);return}
+});
+document.addEventListener('change',async e=>{
+  if(e.target.matches('.item input')){
+    state[e.target.id]=e.target.checked;
+    e.target.closest('.item').classList.toggle('done',e.target.checked);
+    updateProgress();nextUp();
+    await store.set(state);
+  }
+});
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  const on=c.getAttribute('aria-pressed')==='true';
+  c.setAttribute('aria-pressed',!on);
+  const active=[...document.querySelectorAll('.chip[aria-pressed="true"]')].map(x=>x.dataset.f);
+  document.querySelectorAll('li.item').forEach(li=>{
+    li.style.display=(!active.length||active.includes(li.dataset.c)||li.dataset.c==='adm')?'':'none';
+  });
+}));
+let allOpen=false;
+document.getElementById('expandAll').addEventListener('click',e=>{
+  allOpen=!allOpen;
+  document.querySelectorAll('.week').forEach(a=>open(a,allOpen));
+  e.target.textContent=allOpen?'Collapse all':'Expand all';
+});
+document.getElementById('resetAll').addEventListener('click',async()=>{
+  if(!confirm('Clear every tick? This cannot be undone.'))return;
+  state={};await store.set(state);render();
+});
+
+/* ---------------- offline support ---------------- */
+/* Registers sw.js so the planner opens with no internet.
+   Only runs on a real https:// site - silently skipped when you open the
+   file directly from your computer, which is expected. */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+
+/* ---------------- boot ---------------- */
+(async()=>{state=await store.get();render();
+  const w=W.findIndex(x=>x.crit);
+  if(w>-1)open(document.querySelector(`[data-wi="${w}"]`),true);
+})();
+</script>

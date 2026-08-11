@@ -1,0 +1,16 @@
+{
+  "name": "Semester 2 2026 Planner",
+  "short_name": "Sem 2",
+  "description": "Week-by-week planner for ECON2050, ECON3210, FINM3405 and FINM3412.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#E9EBEE",
+  "theme_color": "#12171E",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
